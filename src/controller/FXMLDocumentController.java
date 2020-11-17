@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -40,11 +42,23 @@ public class FXMLDocumentController implements Initializable {
     // Database manager
     EntityManager manager;
 
+    @FXML 
     public void initialize(URL url, ResourceBundle rb) {        
         // loading data from database
         //database reference: "JosephDowneyFXMLPU"
         //needed to change the reference to match the persistence.xml file
         manager = (EntityManager) Persistence.createEntityManagerFactory("JosephDowneyFXMLPU").createEntityManager();
+        assert CreateButton != null : "fx:id=\"CreateButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert ReadButton != null : "fx:id=\"ReadButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert UpdateButton != null : "fx:id=\"UpdateButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert DeleteButton != null : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert EmailContainingButton != null : "fx:id=\"EmailContainingButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert UsernameAndPasswordButton != null : "fx:id=\"UsernameAndPasswordButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert searchTextBox != null : "fx:id=\"searchTextBox\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert searchButton != null : "fx:id=\"searchButton\" was not injected: check your FXML file 'CRUD.fxml'.";
+        assert userTable != null : "fx:id=\"userTable\" was not injected: check your FXML file 'CRUD.fxml'.";
+
+  
     }
 
 
@@ -71,6 +85,15 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML // fx:id="UsernameAndPasswordButton"
     private Button UsernameAndPasswordButton; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="searchTextBox"
+    private TextField searchTextBox; // Value injected by FXMLLoader
+
+    @FXML // fx:id="searchButton"
+    private Button searchButton; // Value injected by FXMLLoader
+
+    @FXML // fx:id="userTable"
+    private TableView<?> userTable; // Value injected by FXMLLoader
 
 
     //****************************************'
@@ -218,6 +241,17 @@ public class FXMLDocumentController implements Initializable {
     }
     
     
+    @FXML
+    void searchButtonAction(ActionEvent event) {
+        System.out.println("clicked!");
+    }
+
+    @FXML
+    void searchTextBoxAction(ActionEvent event) {
+
+    }
+    
+    
     //********************
     // Again, the following functions are copied and modified from the example project
     // Other than slight modifications, I did not write this code
@@ -316,5 +350,6 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(ex.getMessage());
         }
     }
+    
     
 }
