@@ -76,6 +76,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML // fx:id="searchButton"
     private Button searchButton; // Value injected by FXMLLoader
+    
+    @FXML
+    private Button advancedSearchButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="userTable"
     private TableView<Usermodel> userTable; // Value injected by FXMLLoader
@@ -251,7 +254,7 @@ public class FXMLDocumentController implements Initializable {
         
     }
     
-    
+    //adapted from the sample source code
     @FXML
     void searchButtonAction(ActionEvent event) {
         System.out.println("clicked!");
@@ -277,9 +280,32 @@ public class FXMLDocumentController implements Initializable {
         }
     }
 
+    //adapted from the sample source code
     @FXML
-    void searchTextBoxAction(ActionEvent event) {
+    void advancedSearchButtonAction(ActionEvent event) {
+        System.out.println("advanced click!!!");
 
+        // getting the name from input box        
+        String username = searchTextBox.getText();
+
+        // calling a db read operaiton, readByName
+        List<Usermodel> users = readByUsernameAdvanced(username);
+
+        // setting table data
+        //setTableData(students);
+        // add an alert
+        if (users == null || users.isEmpty()) {
+
+            // show an alert to inform user 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");// line 2
+            alert.setHeaderText("There has been an error.");// line 3
+            alert.setContentText("No users have been found");// line 4
+            alert.showAndWait(); // line 5
+        } else {
+            // setting table data
+            setTableData(users);
+        }
     }
     
     
@@ -324,6 +350,22 @@ public class FXMLDocumentController implements Initializable {
     //added from the sample source code
     public List<Usermodel> readByUsername(String username) {
         Query query = manager.createNamedQuery("Usermodel.findByUsername");
+
+        // setting query parameter
+        query.setParameter("username", username);
+
+        // execute query
+        List<Usermodel> users = query.getResultList();
+        for (Usermodel user : users) {
+            System.out.println(user.getId() + " " + user.getUsername() + " " + user.getPassword() + " " + user.getEmailaddress());
+        }
+
+        return users;
+    }
+    
+    //adapted from the sample source code
+        public List<Usermodel> readByUsernameAdvanced(String username) {
+        Query query = manager.createNamedQuery("Usermodel.findByUsernameAdvanced");
 
         // setting query parameter
         query.setParameter("username", username);

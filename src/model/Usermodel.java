@@ -30,6 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Usermodel.findByEmailaddress", query = "SELECT u FROM Usermodel u WHERE u.emailaddress = :emailaddress")
     , @NamedQuery(name = "Usermodel.findByEmailaddressContaining", query = "SELECT u FROM Usermodel u WHERE u.emailaddress LIKE :emailaddress")
     , @NamedQuery(name = "Usermodel.findByUsernameandPassword", query = "SELECT u FROM Usermodel u WHERE u.username = :username AND u.password = :password")
+    //adapted from the sample source code
+    , @NamedQuery(name = "Usermodel.findByUsernameAdvanced", query = "SELECT s FROM Usermodel s WHERE  LOWER(s.username) LIKE  CONCAT('%', LOWER(:username), '%')")
 })
 public class Usermodel implements Serializable {
 

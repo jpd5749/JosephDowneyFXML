@@ -75,8 +75,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="searchTextBox" layoutX="151.0" layoutY="491.0" onAction="#searchTextBoxAction" prefHeight="25.0" prefWidth="282.0" promptText="Enter Student Name" />
-      <Button fx:id="searchButton" layoutX="455.0" layoutY="485.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="36.0" prefWidth="118.0" text="Search" />
+      <TextField fx:id="searchTextBox" layoutX="151.0" layoutY="491.0" prefHeight="25.0" prefWidth="282.0" promptText="Enter Student Name" />
+      <Button fx:id="searchButton" layoutX="453.0" layoutY="460.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="25.0" prefWidth="118.0" text="Search" />
       <TableView fx:id="userTable" layoutX="45.0" layoutY="531.0" prefHeight="247.0" prefWidth="526.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="33.0" text="ID" />
@@ -85,5 +85,6 @@
             <TableColumn fx:id="Email" prefWidth="227.0" text="Email" />
         </columns>
       </TableView>
+      <Button fx:id="advancedSearchButton" layoutX="453.0" layoutY="491.0" mnemonicParsing="false" onAction="#advancedSearchButtonAction" prefHeight="25.0" prefWidth="118.0" text="Advanced Search" />
    </children>
 </AnchorPane>
