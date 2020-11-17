@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -13,7 +14,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -79,6 +84,9 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private Button advancedSearchButton; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="detailsButton"
+    private Button detailsButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="userTable"
     private TableView<Usermodel> userTable; // Value injected by FXMLLoader
@@ -308,6 +316,34 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    //code has once again been adapted from the source code
+    @FXML
+    void detailsButtonAction(ActionEvent event) throws IOException {
+        System.out.println("clicked");
+        
+        // pass currently selected model
+        Usermodel selectedUser = userTable.getSelectionModel().getSelectedItem();
+        
+        // fxml loader
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailModelView.fxml"));
+
+        // load the ui elements
+        Parent detailedModelView = loader.load();
+
+        // load the scene
+        Scene tableViewScene = new Scene(detailedModelView);
+
+        //access the detailedControlled and call a method
+        DetailedModelViewController detailedControlled = loader.getController();
+
+
+        detailedControlled.initData(selectedUser);
+
+        // create a new state
+        Stage stage = new Stage();
+        stage.setScene(tableViewScene);
+        stage.show();
+    }
     
     //********************
     // Again, the following functions are copied and modified from the example project

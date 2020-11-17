@@ -65,7 +65,7 @@
             </BorderPane>
          </children>
       </GridPane>
-      <Label layoutX="48.0" layoutY="410.0" prefHeight="75.0" prefWidth="297.0" text="Search Students">
+      <Label layoutX="48.0" layoutY="410.0" prefHeight="75.0" prefWidth="297.0" text="Search Users">
          <font>
             <Font size="32.0" />
          </font>
@@ -77,7 +77,7 @@
       </Label>
       <TextField fx:id="searchTextBox" layoutX="151.0" layoutY="491.0" prefHeight="25.0" prefWidth="282.0" promptText="Enter Student Name" />
       <Button fx:id="searchButton" layoutX="453.0" layoutY="460.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="25.0" prefWidth="118.0" text="Search" />
-      <TableView fx:id="userTable" layoutX="45.0" layoutY="531.0" prefHeight="247.0" prefWidth="526.0">
+      <TableView fx:id="userTable" layoutX="45.0" layoutY="531.0" prefHeight="213.0" prefWidth="526.0">
         <columns>
           <TableColumn fx:id="ID" prefWidth="33.0" text="ID" />
           <TableColumn fx:id="Username" prefWidth="133.0" text="Username" />
@@ -86,5 +86,6 @@
         </columns>
       </TableView>
       <Button fx:id="advancedSearchButton" layoutX="453.0" layoutY="491.0" mnemonicParsing="false" onAction="#advancedSearchButtonAction" prefHeight="25.0" prefWidth="118.0" text="Advanced Search" />
+      <Button fx:id="detailsButton" layoutX="453.0" layoutY="751.0" mnemonicParsing="false" onAction="#detailsButtonAction" prefHeight="25.0" prefWidth="118.0" text="Show Details" />
    </children>
 </AnchorPane>
