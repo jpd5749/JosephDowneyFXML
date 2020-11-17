@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.FXMLDocumentController">
    <children>
       <GridPane layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
          <columnConstraints>
@@ -55,12 +55,12 @@
             </Label>
             <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <center>
-                  <Button fx:id="EmailContainingButton" mnemonicParsing="false" onAction="#EmailContainingAction" prefHeight="60.0" prefWidth="115.0" text="Read By Email &#10;Containing..." BorderPane.alignment="CENTER" />
+                  <Button fx:id="EmailContainingButton" mnemonicParsing="false" onAction="#EmailContainingAction" prefHeight="72.0" prefWidth="149.0" text="Read By Email &#10;Containing..." BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
             <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <center>
-                  <Button fx:id="UsernameAndPasswordButton" mnemonicParsing="false" onAction="#UsernameAndPasswordAction" prefHeight="60.0" prefWidth="115.0" text="Read By &#10;Username and &#10;Password" BorderPane.alignment="CENTER" />
+                  <Button fx:id="UsernameAndPasswordButton" mnemonicParsing="false" onAction="#UsernameAndPasswordAction" prefHeight="73.0" prefWidth="162.0" text="Read By &#10;Username and &#10;Password" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </children>
@@ -76,13 +76,13 @@
          </font>
       </Label>
       <TextField fx:id="searchTextBox" layoutX="151.0" layoutY="491.0" onAction="#searchTextBoxAction" prefHeight="25.0" prefWidth="282.0" promptText="Enter Student Name" />
-      <Button fx:id="searchButton" layoutX="455.0" layoutY="485.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="36.0" prefWidth="63.0" text="Search" />
+      <Button fx:id="searchButton" layoutX="455.0" layoutY="485.0" mnemonicParsing="false" onAction="#searchButtonAction" prefHeight="36.0" prefWidth="118.0" text="Search" />
       <TableView fx:id="userTable" layoutX="45.0" layoutY="531.0" prefHeight="247.0" prefWidth="526.0">
         <columns>
-          <TableColumn prefWidth="33.0" text="ID" />
-          <TableColumn prefWidth="133.0" text="Username" />
-            <TableColumn prefWidth="132.0" text="Password" />
-            <TableColumn prefWidth="227.0" text="Email" />
+          <TableColumn fx:id="ID" prefWidth="33.0" text="ID" />
+          <TableColumn fx:id="Username" prefWidth="133.0" text="Username" />
+            <TableColumn fx:id="Password" prefWidth="132.0" text="Password" />
+            <TableColumn fx:id="Email" prefWidth="227.0" text="Email" />
         </columns>
       </TableView>
    </children>

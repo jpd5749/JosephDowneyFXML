@@ -14,10 +14,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
@@ -41,25 +45,6 @@ public class FXMLDocumentController implements Initializable {
     
     // Database manager
     EntityManager manager;
-
-    @FXML 
-    public void initialize(URL url, ResourceBundle rb) {        
-        // loading data from database
-        //database reference: "JosephDowneyFXMLPU"
-        //needed to change the reference to match the persistence.xml file
-        manager = (EntityManager) Persistence.createEntityManagerFactory("JosephDowneyFXMLPU").createEntityManager();
-        assert CreateButton != null : "fx:id=\"CreateButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert ReadButton != null : "fx:id=\"ReadButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert UpdateButton != null : "fx:id=\"UpdateButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert DeleteButton != null : "fx:id=\"DeleteButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert EmailContainingButton != null : "fx:id=\"EmailContainingButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert UsernameAndPasswordButton != null : "fx:id=\"UsernameAndPasswordButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert searchTextBox != null : "fx:id=\"searchTextBox\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert searchButton != null : "fx:id=\"searchButton\" was not injected: check your FXML file 'CRUD.fxml'.";
-        assert userTable != null : "fx:id=\"userTable\" was not injected: check your FXML file 'CRUD.fxml'.";
-
-  
-    }
 
 
     @FXML // ResourceBundle that was given to the FXMLLoader
@@ -93,7 +78,33 @@ public class FXMLDocumentController implements Initializable {
     private Button searchButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="userTable"
-    private TableView<?> userTable; // Value injected by FXMLLoader
+    private TableView<Usermodel> userTable; // Value injected by FXMLLoader
+    
+    //Values adapted from the sample source code FXMLDocumentController
+    @FXML
+    private TableColumn<Usermodel, Integer> ID;
+    @FXML
+    private TableColumn<Usermodel, String> Username;
+    @FXML
+    private TableColumn<Usermodel, String> Password;
+    @FXML
+    private TableColumn<Usermodel, String> Email;
+    
+    //also adapted from the sample source code
+    private ObservableList<Usermodel> userData;
+
+    // add the proper data to the observable list to be rendered in the table
+    public void setTableData(List<Usermodel> userList) {
+
+        userData = FXCollections.observableArrayList();
+
+        userList.forEach(u -> {
+            userData.add(u);
+        });
+
+        userTable.setItems(userData);
+        userTable.refresh();
+    }
 
 
     //****************************************'
@@ -244,6 +255,26 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     void searchButtonAction(ActionEvent event) {
         System.out.println("clicked!");
+
+        // getting the name from input box        
+        String username = searchTextBox.getText();
+
+        // calling a db read operaiton, readByName
+        List<Usermodel> users = readByUsername(username);
+
+        if (users == null || users.isEmpty()) {
+
+            // show an alert to inform user 
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERROR");// line 2
+            alert.setHeaderText("There has been an error.");// line 3
+            alert.setContentText("There are no users with that username.");// line 4
+            alert.showAndWait(); // line 5
+        } else {
+
+            // setting table data
+            setTableData(users);
+        }
     }
 
     @FXML
@@ -287,6 +318,22 @@ public class FXMLDocumentController implements Initializable {
             System.out.println(u.getId() + " " + u.getUsername() + " " + u.getPassword() + " " + u.getEmailaddress());
         }
         
+        return users;
+    }
+    
+    //added from the sample source code
+    public List<Usermodel> readByUsername(String username) {
+        Query query = manager.createNamedQuery("Usermodel.findByUsername");
+
+        // setting query parameter
+        query.setParameter("username", username);
+
+        // execute query
+        List<Usermodel> users = query.getResultList();
+        for (Usermodel user : users) {
+            System.out.println(user.getId() + " " + user.getUsername() + " " + user.getPassword() + " " + user.getEmailaddress());
+        }
+
         return users;
     }
     
@@ -351,5 +398,22 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+        @FXML 
+    public void initialize(URL url, ResourceBundle rb) {        
+        // loading data from database
+        //database reference: "JosephDowneyFXMLPU"
+        //needed to change the reference to match the persistence.xml file
+        manager = (EntityManager) Persistence.createEntityManagerFactory("JosephDowneyFXMLPU").createEntityManager();
+        
+        //the following code has been derived from the sample source code from IntroJavaFX
+        ID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Username.setCellValueFactory(new PropertyValueFactory<>("username"));
+        Password.setCellValueFactory(new PropertyValueFactory<>("password"));
+        Email.setCellValueFactory(new PropertyValueFactory<>("emailaddress"));
+        userTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+
+  
+    }
+
     
 }
