@@ -43,7 +43,9 @@ public class DetailedModelViewController {
 
     //the following code was adapted from the sample source code
     Usermodel selectedModel;
+    Scene previousScene;
     
+    //adapted from the sample source code
     public void initData(Usermodel model) {
         selectedModel = model;
         IDLabel.setText(model.getId().toString());
@@ -62,7 +64,29 @@ public class DetailedModelViewController {
         }
     }
     
+    //adapted from the sample source code
+    public void setPreviousScene(Scene scene) {
+        previousScene = scene;
+        backButton.setDisable(false);
+
+    }
     
+    //adapted from the sample source code
+    @FXML
+    void backButtonAction(ActionEvent event) {
+        // option 1: get current stage -- from event
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
+        //  option 2: get current stage -- from backbutton        
+        // Stage stage = (Stage)backButton.getScene().getWindow();
+        
+        if (previousScene != null) {
+            stage.setScene(previousScene);
+        }
+
+    }
+    
+    //partially adapted from the sample source code
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert backButton != null : "fx:id=\"backButton\" was not injected: check your FXML file 'DetailModelView.fxml'.";
@@ -70,6 +94,8 @@ public class DetailedModelViewController {
         assert UsernameLabel != null : "fx:id=\"UsernameLabel\" was not injected: check your FXML file 'DetailModelView.fxml'.";
         assert EmailLabel != null : "fx:id=\"EmailLabel\" was not injected: check your FXML file 'DetailModelView.fxml'.";
         assert image != null : "fx:id=\"image\" was not injected: check your FXML file 'DetailModelView.fxml'.";
+        
+        backButton.setDisable(true);
         
     }
 }

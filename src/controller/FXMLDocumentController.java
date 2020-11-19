@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -87,6 +88,9 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML // fx:id="detailsButton"
     private Button detailsButton; // Value injected by FXMLLoader
+    
+    @FXML // fx:id="detailsInPlaceButton"
+    private Button detailsInPlaceButton; // Value injected by FXMLLoader
 
     @FXML // fx:id="userTable"
     private TableView<Usermodel> userTable; // Value injected by FXMLLoader
@@ -319,7 +323,7 @@ public class FXMLDocumentController implements Initializable {
     //code has once again been adapted from the source code
     @FXML
     void detailsButtonAction(ActionEvent event) throws IOException {
-        System.out.println("clicked");
+        System.out.println("details clicked");
         
         // pass currently selected model
         Usermodel selectedUser = userTable.getSelectionModel().getSelectedItem();
@@ -344,6 +348,43 @@ public class FXMLDocumentController implements Initializable {
         stage.setScene(tableViewScene);
         stage.show();
     }
+    
+    //code is adapted from the sample source code
+    @FXML
+    void detailsInPlaceButtonAction(ActionEvent event) throws IOException {
+        System.out.println("details in place clicked");
+
+        
+        // pass currently selected model
+        Usermodel selectedUser = userTable.getSelectionModel().getSelectedItem();
+
+        
+        // fxml loader
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DetailModelView.fxml"));
+
+        // load the ui elements
+        Parent detailedModelView = loader.load();
+
+        // load the scene
+        Scene tableViewScene = new Scene(detailedModelView);
+
+        //access the detailedControlled and call a method
+        DetailedModelViewController detailedControlled = loader.getController();
+
+
+        detailedControlled.initData(selectedUser);
+
+        // pass current scene to return
+        Scene currentScene = ((Node) event.getSource()).getScene();
+        detailedControlled.setPreviousScene(currentScene);
+
+        //This line gets the Stage information
+        Stage stage = (Stage) currentScene.getWindow();
+
+        stage.setScene(tableViewScene);
+        stage.show();
+    }
+    
     
     //********************
     // Again, the following functions are copied and modified from the example project

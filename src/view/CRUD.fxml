@@ -87,5 +87,6 @@
       </TableView>
       <Button fx:id="advancedSearchButton" layoutX="453.0" layoutY="491.0" mnemonicParsing="false" onAction="#advancedSearchButtonAction" prefHeight="25.0" prefWidth="118.0" text="Advanced Search" />
       <Button fx:id="detailsButton" layoutX="453.0" layoutY="751.0" mnemonicParsing="false" onAction="#detailsButtonAction" prefHeight="25.0" prefWidth="118.0" text="Show Details" />
+      <Button fx:id="detailsInPlaceButton" layoutX="271.0" layoutY="751.0" mnemonicParsing="false" onAction="#detailsInPlaceButtonAction" prefHeight="25.0" prefWidth="149.0" text="Show Details In Place" />
    </children>
 </AnchorPane>
